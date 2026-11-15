@@ -1,0 +1,12 @@
+/* Globale Farbvariablen */
+:root {
+    --background-color: rgb(6, 23, 30);
+    --header-background: rgb(9, 33, 42);
+    --card-background: rgb(13, 52, 66);
+
+    --text-primary: rgb(255, 255, 255);
+    --text-secondary: rgb(181, 197, 202);
+
+    --border-color: rgb(49, 124, 148);
+    --accent-red: rgb(253, 91, 79);
+}

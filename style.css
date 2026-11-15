@@ -242,4 +242,17 @@ main {
     overflow-wrap: anywhere;
 }
 
+/* Scrollbar */
+
+/* Gestaltet die gesamte Scrollbar und legt ihre Breite auf 4px fest. */
+.comments-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Gestaltet den beweglichen Scrollbalken (Thumb) mit Farbe und abgerundeten Ecken. */
+.comments-list::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+}
+
 

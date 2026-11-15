@@ -308,4 +308,16 @@ footer {
     color: var(--text-secondary);
 }
 
+/* Responsive Design */
 
+/* Tablet */
+
+@media screen and (max-width: 1220px) {
+    .header-content h1 {
+        font-size: 32px;
+    }
+
+    .header-content > span {
+        font-size: 20px;
+    }
+}

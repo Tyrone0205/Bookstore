@@ -136,3 +136,36 @@ main {
     border-bottom: 2px solid var(--border-color);
 }
 
+/* Preis und Likes */
+
+.book-price-likes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.book-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--accent-red);
+}
+
+.book-likes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.book-likes span {
+    font-size: 24px;
+}
+
+.book-likes button {
+    border: none;
+    background: transparent;
+    color: var(--accent-red);
+    font-size: 32px;
+    cursor: pointer;
+}
+

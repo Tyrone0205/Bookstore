@@ -87,3 +87,16 @@ main {
     border-radius: 16px;
     overflow: hidden;
 }
+
+/* BUCHTITEL */
+
+.book-header {
+    padding: 14px 12px;
+    text-align: center;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.book-header h2 {
+    font-size: 28px;
+    font-weight: bold;
+}

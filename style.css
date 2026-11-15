@@ -255,4 +255,42 @@ main {
     border-radius: 10px;
 }
 
+/* KOMMENTARFORMULAR */
 
+.comment-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.comment-form input {
+    flex: 1;
+    min-width: 0;
+
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+
+    background-color: rgb(22, 70, 86);
+    color: var(--text-primary);
+    font-size: 16px;
+    outline: none;
+}
+
+
+.comment-form input::placeholder {
+    color: var(--text-secondary);
+}
+
+.comment-form input:focus {
+    border-bottom-color: rgb(107, 193, 225);
+}
+
+.comment-form button {
+    border: none;
+    background: transparent;
+    color: var(--border-color);
+    font-size: 24px;
+    cursor: pointer;
+}

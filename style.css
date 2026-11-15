@@ -59,7 +59,7 @@ header {
     font-weight: bold;
 }
 
-.header-content > span {
+.header-content>span {
     font-size: 26px;
     font-weight: bold;
 }
@@ -99,4 +99,32 @@ main {
 .book-header h2 {
     font-size: 28px;
     font-weight: bold;
+}
+
+/* BUCHBILD */
+
+.book-image {
+    height: 145px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*
+    * radial-gradient() erzeugt einen kreisförmigen Farbverlauf.
+    * circle: Der Farbverlauf breitet sich kreisförmig aus.
+    * rgb(24, 86, 107) 0%: Hellere Startfarbe im Mittelpunkt.
+    * rgb(16, 58, 75) 100%: Dunklere Endfarbe am äußeren Rand.
+    * Standardmäßig beginnt der Verlauf in der Mitte des Elements.
+    */
+    background: radial-gradient(circle,
+            rgb(24, 86, 107) 0%,
+            rgb(16, 58, 75) 100%);
+
+    border-bottom: 2px solid var(--border-color);        
+}
+
+.book-image img {
+    max-width: 110px;
+    max-height: 110px;
+    object-fit: contain;
 }

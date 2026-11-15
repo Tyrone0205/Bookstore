@@ -169,3 +169,36 @@ main {
     cursor: pointer;
 }
 
+/* Autor, Erscheinungsjahr und Genre */
+
+.book-details {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    font-size: 16px;
+}
+
+/*
+ * flex: 0 0 55% ist die Kurzschreibweise für:
+ * flex-grow: 0;   -> Element darf nicht wachsen.
+ * flex-shrink: 0; -> Element darf nicht schrumpfen.
+ * flex-basis: 55%; -> Ausgangsbreite beträgt 55% des Flex-Containers.
+ *
+ * Im Gegensatz zu flex: 1 wird der freie Platz nicht zusätzlich verteilt.
+ * Mit flex-wrap: wrap können weitere Elemente in die nächste Zeile umbrechen.
+ */
+.book-details dt {
+    flex: 0 0 55%;
+    font-weight: bold;
+}
+
+.book-details dd {
+    flex: 0 0 45%;
+    color: var(--text-secondary);
+    /* Bricht überlange Wörter oder URLs um, damit sie nicht aus dem Container ragen */
+    overflow-wrap: anywhere;
+}
+
+.book-details dd::before {
+    content: ": ";
+}

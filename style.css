@@ -294,3 +294,18 @@ main {
     font-size: 24px;
     cursor: pointer;
 }
+
+/* FOOTER */
+
+footer {
+    background-color: var(--header-background);
+}
+
+.footer-content {
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+

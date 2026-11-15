@@ -128,3 +128,11 @@ main {
     max-height: 110px;
     object-fit: contain;
 }
+
+/* BUCHINFORMATIONEN */
+
+.book-information {
+    padding: 20px 16px 14px;
+    border-bottom: 2px solid var(--border-color);
+}
+

@@ -202,3 +202,44 @@ main {
 .book-details dd::before {
     content: ": ";
 }
+
+/* KOMMENTARE */
+
+.book-comments {
+    padding: 16px;
+}
+
+.book-comments h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    height: 150px;
+
+    /* Zeigt nur bei Bedarf einen vertikalen Scrollbalken an (wenn der Inhalt höher als das Element ist) */
+    overflow-y: auto;
+
+    padding-right: 8px;
+}
+
+.comments-list p {
+    display: flex;
+    gap: 8px;
+
+    font-size: 16px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.comments-list strong {
+    flex: 0 0 100px;
+    font-weight: normal;
+    overflow-wrap: anywhere;
+}
+
+

@@ -8,11 +8,12 @@ function renderBooks() {
         const book = books[bookIndex];
         book.comments
 
-        bookCollRef += getBookTemplate(book);
+        bookCollRef += getBookTemplate(book, bookIndex);
+
     }
 }
 
-function getBookTemplate(book) {
+function getBookTemplate(book, bookIndex) {
     return `<article class="book-card">
                 <section class="book-header">
                     <h2>${book.name}</h2>
@@ -48,10 +49,10 @@ function getBookTemplate(book) {
 
                 </section>
 
-                <section id="comment-section" onload="renderComments(${book.comments})" class="book-comments">
+                <section class="book-comments">
                     <h3>Kommentare:</h3>
 
-                    <div class="comments-list">
+                    <div id="comments-list-${bookIndex}" class="comments-list">
                         <p><strong>Kevin:</strong> asdasd</p>
                         <p><strong>Kevin:</strong> asdasdasdasd</p>
                         <p>
@@ -72,4 +73,15 @@ function getBookTemplate(book) {
 
                 </section>
             </article>`
+}
+
+function renderComments(bookIndex) {
+    let comments = books[bookIndex].comments;
+    let commentsRef = document.getElementById(`comments-list-${bookIndex}`)
+    commentsRef.innerHTML = '';
+
+    for (let commentIndex = 0; commentIndex < comments.length; commentIndex++) {
+        const comment = comments[commentIndex];
+        commentsRef += getCommentTemplate(comment);  
+    }
 }

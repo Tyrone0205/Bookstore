@@ -10,20 +10,17 @@ function saveToLocalStorage() {
     localStorage.setItem(storageKey, JSON.stringify(books));
 }
 
-// Lädt die gespeicherten Buchdaten aus dem localStorage.
+// Lädt und überprüft die gespeicherten Buchdaten aus dem localStorage.
 function getFromLocalStorage() {
     const savedData = localStorage.getItem(storageKey);
 
-    // Beim ersten Besuch existieren noch keine gespeicherten Daten.
     if (savedData === null) {
         return;
     }
 
     try {
-        // JSON-String wieder in ein JavaScript-Array umwandeln.
         const data = JSON.parse(savedData);
 
-        // Überprüfen, ob es sich um ein gültiges Array mit Buchobjekten handelt.
         if (!Array.isArray(data) || !data.every(book =>
             book !== null &&
             typeof book === 'object' &&
@@ -34,50 +31,36 @@ function getFromLocalStorage() {
             return;
         }
 
-        // Gespeicherte Bücher übernehmen.
         books = data;
 
     } catch (error) {
-        // Fehlerhafte JSON-Daten abfangen.
         console.error('Fehler beim Laden der Buchdaten:', error);
     }
 }
 
-// Initialisierung beim Laden der Webseite.
+// Lädt die gespeicherten Daten und rendert anschließend alle Bücher.
 function init() {
     getFromLocalStorage();
     renderBooks();
 }
 
+// Rendert alle Bücher oder ausschließlich gelikte Bücher, abhängig vom aktiven Filter.
 function renderBooks() {
-
     bookCollRef.innerHTML = '';
 
     for (let bookIndex = 0; bookIndex < books.length; bookIndex++) {
         const book = books[bookIndex];
 
-        // Erst die Buchkarte im DOM erstellen
-        /*
-        * innerHTML += liest den bisherigen HTML-Inhalt und erstellt alle
-        * Kind-Elemente beim Anhängen erneut (Event-Listener gehen verloren).
-        * insertAdjacentHTML('beforeend', ...) fügt neuen HTML-Code am Ende
-        * hinzu, ohne bestehende Elemente neu zu erstellen.
-        * Dadurch ist es bei vielen Einträgen meist performanter.
-        */
-
-        // Bei aktiviertem Filter ungelikte Bücher überspringen.
         if (showLikedOnly && !book.liked) {
             continue;
         }
 
         bookCollRef.insertAdjacentHTML('beforeend', getBookTemplate(book, bookIndex));
-
-        // Danach die Kommentare des jeweiligen Buches rendern
         renderComments(bookIndex);
-
     }
 }
 
+// Rendert die Kommentare des jeweiligen Buches.
 function renderComments(bookIndex) {
     let comments = books[bookIndex].comments;
     let commentsRef = document.getElementById(`comments-list-${bookIndex}`);
@@ -91,13 +74,14 @@ function renderComments(bookIndex) {
     }
 }
 
-// Benutzereingaben maskieren, damit HTML-Code nicht ausgeführt wird.
+// Maskiert HTML-Sonderzeichen, damit Benutzereingaben nicht als HTML-Code ausgeführt werden.
 function escapeHtml(value) {
     const element = document.createElement('span');
     element.textContent = String(value);
     return element.innerHTML;
 }
 
+// Fügt einen neuen Kommentar zum jeweiligen Buch hinzu und speichert die Änderungen.
 function addComment(bookIndex) {
     const username = localStorage.getItem('bookstoreUserName');
     const commentInputRef = document.getElementById(`comment-input-${bookIndex}`);
@@ -107,7 +91,6 @@ function addComment(bookIndex) {
         return;
     }
 
-    // Falls kein Benutzername existiert, Dialog öffnen.
     if (!username) {
         pendingBookIndex = bookIndex;
         openUsernameDialog();
@@ -119,63 +102,56 @@ function addComment(bookIndex) {
         comment: commentText
     };
 
-    // Kommentar zum jeweiligen Buch hinzufügen.
     books[bookIndex].comments.push(newComment);
-
-    // Aktualisierte Buchdaten dauerhaft speichern.
     saveToLocalStorage();
 
     renderComments(bookIndex);
     commentInputRef.value = '';
 }
 
+// Speichert den Benutzernamen und fügt anschließend den ursprünglichen Kommentar hinzu.
 function saveUsername(event) {
-    // Verhindert das standardmäßige Absenden des Formulars
-    // und damit das mögliche Neuladen der Webseite.
     event.preventDefault();
 
     const username = document.getElementById('username-input').value.trim();
 
     if (!username) return;
 
-    // Benutzernamen im Browser speichern.
     localStorage.setItem('bookstoreUserName', username);
 
-    // Buchindex sichern, bevor der Dialog geschlossen wird.
     const bookIndex = pendingBookIndex;
 
     closeUsernameDialog();
 
-    // Ursprünglichen Kommentar hinzufügen.
     if (bookIndex !== null) {
         addComment(bookIndex);
     }
 }
 
+// Öffnet den Benutzernamen-Dialog als modales Pop-up.
 function openUsernameDialog() {
     usernameDialogRef.showModal();
 }
 
+// Schließt den Benutzernamen-Dialog und setzt den gespeicherten Buchindex zurück.
 function closeUsernameDialog() {
     usernameDialogRef.close();
     pendingBookIndex = null;
 }
 
-// Setzt den Buchindex auch beim Schließen mit Escape zurück.
+// Setzt den Buchindex auch beim Schließen über die Escape-Taste zurück.
 usernameDialogRef.addEventListener('close', () => {
     pendingBookIndex = null;
 });
 
+// Schließt den Benutzernamen-Dialog bei einem Klick außerhalb des Dialogfensters.
 function closeUsernameDialogOutside(event) {
-    // Nur Klicks auf das Dialogelement selbst berücksichtigen.
     if (event.target !== usernameDialogRef) {
         return;
     }
 
-    // Position und Größe des Dialogs ermitteln.
     const rect = usernameDialogRef.getBoundingClientRect();
 
-    // Überprüfen, ob außerhalb des sichtbaren Dialogs geklickt wurde.
     const isOutside =
         event.clientX < rect.left ||
         event.clientX > rect.right ||
@@ -187,13 +163,13 @@ function closeUsernameDialogOutside(event) {
     }
 }
 
+// Ändert den Like-Status eines Buches, aktualisiert den Counter und speichert die Änderungen.
 function toggleLike(bookIndex) {
     const book = books[bookIndex];
 
     const likeCounterRef = document.getElementById(`like-counter-${bookIndex}`);
     const likeButtonRef = document.getElementById(`like-button-${bookIndex}`);
 
-    // Like-Status überprüfen und entsprechend ändern.
     if (book.liked === false) {
         book.liked = true;
         book.likes++;
@@ -202,28 +178,21 @@ function toggleLike(bookIndex) {
         book.likes--;
     }
 
-    // Aktualisierte Buchdaten dauerhaft speichern.
     saveToLocalStorage();
 
-    // CSS-Klasse entsprechend dem Like-Status hinzufügen oder entfernen.
     likeButtonRef.classList.toggle('liked', book.liked);
-
-    // Herzsymbol und Like-Counter aktualisieren.
     likeCounterRef.textContent = book.likes;
-
-    // Like-Status für Screenreader aktualisieren.
     likeButtonRef.setAttribute('aria-pressed', book.liked);
 
-    // Bei aktiviertem Filter die Buchauswahl aktualisieren.
     if (showLikedOnly && !book.liked) {
         renderBooks();
     }
 }
 
+// Aktiviert den gewünschten Buchfilter und aktualisiert die angezeigten Buchkarten.
 function setBookFilter(likedOnly) {
     showLikedOnly = likedOnly;
 
-    // Aktiven Filter für Screenreader aktualisieren.
     document.getElementById('filter-all')
         .setAttribute('aria-pressed', !likedOnly);
 

@@ -7,7 +7,7 @@
     <title>DA Bookstore</title>
 
     <link rel="stylesheet" href="./style.css">
-        <link rel="shortcut icon" href="./assets/icons/website_icon.png" type="image/png">
+    <link rel="shortcut icon" href="./assets/icons/website_icon.png" type="image/png">
     <script src="./script.js" defer></script>
     <script src="./scripts/db.js" defer></script>
 </head>
@@ -34,15 +34,21 @@
     </footer>
 
     <!-- Dialog zur einmaligen Eingabe des Benutzernamens -->
-    <dialog id="username-dialog" class="username-dialog">
-
+    <dialog id="username-dialog" class="username-dialog" aria-labelledby="username-dialog-title"
+        onclick="closeUsernameDialogOutside(event)">
+        
         <form id="username-form" class="username-form" onsubmit="saveUsername(event)">
 
-            <h2>Willkommen im Bookstore!</h2>
+            <h2 id="username-dialog-title">
+                Willkommen im Bookstore!
+            </h2>
 
-            <p>Wie dürfen wir dich nennen?</p>
+            <label for="username-input">
+                Wie dürfen wir dich nennen?
+            </label>
 
-            <input type="text" id="username-input" placeholder="Dein Benutzername ..." maxlength="25" required>
+            <input type="text" id="username-input" name="username" placeholder="Dein Benutzername ..."
+                autocomplete="nickname" maxlength="25" required>
 
             <div class="username-buttons">
                 <button type="button" onclick="closeUsernameDialog()">
@@ -55,8 +61,8 @@
             </div>
 
         </form>
-
     </dialog>
+
 
 </body>
 

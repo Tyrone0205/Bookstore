@@ -7,7 +7,7 @@ let books = [
         "price": 19.99,
         "publishedYear": 2018,
         "genre": "Fantasy",
-        "picture": "",
+        "picture": "./assets/img/Die_Geheimnisse_des_Ozeans.png",
         "comments": [
             {
                 "name": "Leser123",
@@ -39,7 +39,7 @@ let books = [
         "price": 14.50,
         "publishedYear": 2021,
         "genre": "Fantasy",
-        "picture": "",
+        "picture": "./assets/img/Der_vergessene_Pfad.png",
         "comments": []
     },
     {
@@ -50,7 +50,7 @@ let books = [
         "price": 22.95,
         "publishedYear": 2019,
         "genre": "Romantik",
-        "picture": "",
+        "picture": "./assets/img/Die_Farben_des_Himmels.png",
         "comments": [
             {
                 "name": "LeserPeter",
@@ -82,7 +82,7 @@ let books = [
         "price": 18.00,
         "publishedYear": 2020,
         "genre": "Science-Fiction",
-        "picture": "",
+        "picture": "./assets/img/Das_Raetsel_der_Zeit.png",
         "comments": [
             {
                 "name": "BuchKenner",
@@ -102,7 +102,7 @@ let books = [
         "price": 16.75,
         "publishedYear": 2017,
         "genre": "Fantasy",
-        "picture": "",
+        "picture": "./assets/img/Der_letzte_Waechter.png",
         "comments": []
     },
     {
@@ -113,7 +113,7 @@ let books = [
         "price": 12.30,
         "publishedYear": 2022,
         "genre": "Science-Fiction",
-        "picture": "",
+        "picture": "./assets/img/Im_Schatten_des_Mondes.webp",
         "comments": [
             {
                 "name": "BücherLiebhaber",
@@ -133,7 +133,7 @@ let books = [
         "price": 21.00,
         "publishedYear": 2015,
         "genre": "Science-Fiction",
-        "picture": "",
+        "picture": "./assets/img/Jenseits_der_Sterne.webp",
         "comments": [
             {
                 "name": "Leser123",
@@ -149,7 +149,7 @@ let books = [
         "price": 17.50,
         "publishedYear": 2020,
         "genre": "Fantasy",
-        "picture": "",
+        "picture": "./assets/img/Das_verborgene_Koenigreich.webp",
         "comments": [
             {
                 "name": "Bookworm92",
@@ -165,7 +165,7 @@ let books = [
         "price": 19.99,
         "publishedYear": 2016,
         "genre": "Romantik",
-        "picture": "",
+        "picture": "./assets/img/Liebe_in_Zeiten_des_Krieges.webp",
         "comments": [
             {
                 "name": "Bibliophile23",
@@ -189,7 +189,7 @@ let books = [
         "price": 15.00,
         "publishedYear": 1937,
         "genre": "Fantasy",
-        "picture": "",
+        "picture": "./assets/img/Der_Hobbit.webp",
         "comments": [
             {
                 "name": "MiddleEarthFan",
@@ -209,7 +209,7 @@ let books = [
         "price": 12.99,
         "publishedYear": 1949,
         "genre": "Dystopie",
-        "picture": "",
+        "picture": "./assets/img/1984.webp",
         "comments": [
             {
                 "name": "ClassicReader",

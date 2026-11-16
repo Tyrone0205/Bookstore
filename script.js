@@ -9,6 +9,39 @@ function saveToLocalStorage() {
     localStorage.setItem(storageKey, JSON.stringify(books));
 }
 
+// Lädt die gespeicherten Buchdaten aus dem localStorage.
+function getFromLocalStorage() {
+    const savedData = localStorage.getItem(storageKey);
+
+    // Beim ersten Besuch existieren noch keine gespeicherten Daten.
+    if (savedData === null) {
+        return;
+    }
+
+    try {
+        // JSON-String wieder in ein JavaScript-Array umwandeln.
+        const data = JSON.parse(savedData);
+
+        // Überprüfen, ob es sich um ein gültiges Array mit Buchobjekten handelt.
+        if (!Array.isArray(data) || !data.every(book =>
+            book !== null &&
+            typeof book === 'object' &&
+            Array.isArray(book.comments) &&
+            typeof book.likes === 'number' &&
+            typeof book.liked === 'boolean'
+        )) {
+            return;
+        }
+
+        // Gespeicherte Bücher übernehmen.
+        books = data;
+
+    } catch (error) {
+        // Fehlerhafte JSON-Daten abfangen.
+        console.error('Fehler beim Laden der Buchdaten:', error);
+    }
+}
+
 function renderBooks() {
 
     bookCollRef.innerHTML = '';

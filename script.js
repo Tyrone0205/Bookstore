@@ -188,6 +188,9 @@ function addComment(bookIndex) {
     // Kommentar zum jeweiligen Buch hinzufügen.
     books[bookIndex].comments.push(newComment);
 
+    // Aktualisierte Buchdaten dauerhaft speichern.
+    saveToLocalStorage();
+
     renderComments(bookIndex);
     commentInputRef.value = '';
 }
@@ -239,6 +242,9 @@ function toggleLike(bookIndex) {
         book.liked = false;
         book.likes--;
     }
+
+    // Aktualisierte Buchdaten dauerhaft speichern.
+    saveToLocalStorage();
 
     // CSS-Klasse entsprechend dem Like-Status hinzufügen oder entfernen.
     likeButtonRef.classList.toggle('liked', book.liked);

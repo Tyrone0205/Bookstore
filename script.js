@@ -1,5 +1,7 @@
+
 let bookCollRef = document.getElementById('book-collection');
 const usernameDialogRef = document.getElementById('username-dialog');
+let pendingBookIndex = null;
 
 function renderBooks() {
 
@@ -67,10 +69,10 @@ function getBookTemplate(book, bookIndex) {
 
                     </div>
 
-                    <form class="comment-form">
+                    <form class="comment-form" onsubmit="event.preventDefault(); addComment(${bookIndex})">
                         <input id="comment-input-${bookIndex}" type="text" name="comment" placeholder="Schreibe deinen Kommentar ..."
                             aria-label="Kommentar schreiben" required>
-                        <button type="submit" aria-label="Kommentar senden" onclick="addComment(${bookIndex})">
+                        <button type="submit" aria-label="Kommentar senden">
                             ➤
                         </button>
                     </form>
@@ -93,49 +95,77 @@ function renderComments(bookIndex) {
     }
 }
 
+// Benutzereingaben maskieren, damit HTML-Code nicht ausgeführt wird.
+function escapeHtml(value) {
+    const element = document.createElement('span');
+    element.textContent = String(value);
+    return element.innerHTML;
+}
+
 function getCommentTemplate(comment) {
     return `<p>
-                <strong>${comment.name}:</strong>
-                ${comment.comment}
+                <strong>${escapeHtml(comment.name)}:</strong>
+                ${escapeHtml(comment.comment)}
             </p>`
 }
 
 
 function addComment(bookIndex) {
-
     const username = localStorage.getItem('bookstoreUserName');
+    const commentInputRef = document.getElementById(`comment-input-${bookIndex}`);
+    const commentText = commentInputRef.value.trim();
 
+    if (!commentText) {
+        return;
+    }
+
+    // Falls kein Benutzername existiert, Dialog öffnen.
     if (!username) {
+        pendingBookIndex = bookIndex;
         openUsernameDialog();
         return;
     }
 
-    const commentInputRef = document.getElementById(`comment-input-${bookIndex}`);
-    const commentText = commentInputRef.value.trim();
-
-    // Leere Kommentare verhindern
-    if (!commentText) return;
-
-    // Neues Kommentarobjekt erstellen
     const newComment = {
         name: username,
         comment: commentText
     };
 
-    // Kommentar zum richtigen Buch hinzufügen
+    // Kommentar zum jeweiligen Buch hinzufügen.
     books[bookIndex].comments.push(newComment);
 
-    // Kommentare des jeweiligen Buches neu rendern
     renderComments(bookIndex);
-
-    // Eingabefeld zurücksetzen
     commentInputRef.value = '';
 }
 
+function saveUsername(event) {
+    // Verhindert das standardmäßige Absenden des Formulars
+    // und damit das mögliche Neuladen der Webseite.
+    event.preventDefault();
+
+    const username = document.getElementById('username-input').value.trim();
+
+    if (!username) return;
+
+    // Benutzernamen im Browser speichern.
+    localStorage.setItem('bookstoreUserName', username);
+
+    // Buchindex sichern, bevor der Dialog geschlossen wird.
+    const bookIndex = pendingBookIndex;
+
+    closeUsernameDialog();
+
+    // Ursprünglichen Kommentar hinzufügen.
+    if (bookIndex !== null) {
+        addComment(bookIndex);
+    }
+}
+
 function openUsernameDialog() {
-    usernameDialogRef.openModal();
+    usernameDialogRef.showModal();
 }
 
 function closeUsernameDialog() {
     usernameDialogRef.close();
+    pendingBookIndex = null;
 }

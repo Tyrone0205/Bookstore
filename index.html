@@ -32,9 +32,11 @@
         </div>
     </footer>
 
-
+    <!-- Dialog zur einmaligen Eingabe des Benutzernamens -->
     <dialog id="username-dialog" class="username-dialog">
-        <form id="username-form" class="username-form">
+
+        <form id="username-form" class="username-form" onsubmit="saveUsername(event)">
+
             <h2>Willkommen im Bookstore!</h2>
 
             <p>Wie dürfen wir dich nennen?</p>
@@ -50,7 +52,9 @@
                     Speichern & kommentieren
                 </button>
             </div>
+
         </form>
+
     </dialog>
 
 </body>

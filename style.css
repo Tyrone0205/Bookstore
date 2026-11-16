@@ -49,8 +49,8 @@ header {
 }
 
 .header-content img {
-    width: 32px;
-    height: 32px;
+    width: 64px;
+    height: 64px;
     object-fit: contain;
 }
 
@@ -161,13 +161,29 @@ main {
     font-size: 24px;
 }
 
+
 .book-likes button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
     border: none;
     background: transparent;
-    color: var(--accent-red);
+    color: transparent;
+    -webkit-text-stroke: 2px var(--text-secondary);
     font-size: 32px;
     cursor: pointer;
 }
+
+/* Füllt das Herz bei einem Like rot aus. */
+.book-likes button.liked {
+    color: var(--accent-red);
+    -webkit-text-stroke: 2px var(--accent-red);
+}
+
+
 
 /* Autor, Erscheinungsjahr und Genre */
 
@@ -307,6 +323,74 @@ footer {
     font-size: 16px;
     color: var(--text-secondary);
 }
+
+
+/* BENUTZERNAME DIALOG */
+
+.username-dialog {
+    width: calc(100% - 32px);
+    max-width: 400px;
+    padding: 24px;
+    margin: auto;
+
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+
+    background-color: var(--card-background);
+    color: var(--text-primary);
+}
+
+.username-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.username-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.username-form h2 {
+    font-size: 24px;
+}
+
+.username-form p {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+.username-form input {
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+
+    background-color: rgb(22, 70, 86);
+    color: var(--text-primary);
+    font-size: 16px;
+}
+
+.username-buttons {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.username-buttons button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.username-buttons button:last-child {
+    background-color: var(--accent-red);
+    color: var(--text-primary);
+}
+
 
 /* Responsive Design */
 

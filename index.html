@@ -8,79 +8,20 @@
 
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
+    <script src="./scripts/db.js" defer></script>
 </head>
 
-<body>
+<body onload="init()">
     <header>
         <div class="content-container header-content">
-            <img src="./assets/icons/logo.svg" alt="DA Bookstore Logo">
+            <img src="./assets/icons/website_icon.png" alt="DA Bookstore Logo">
             <h1>DA Bookstore</h1>
             <span>- get your book here</span>
         </div>
     </header>
 
     <main>
-        <div class="content-container book-container">
-
-            <article class="book-card">
-                <section class="book-header">
-                    <h2>Die Geheimnisse des Ozeans</h2>
-                </section>
-
-                <div class="book-image">
-                    <img src="./assets/img/book.png" alt="Buchcover">
-                </div>
-
-                <section class="book-information">
-
-                    <div class="book-price-likes">
-                        <span class="book-price">19,99 €</span>
-
-                        <div class="book-likes">
-                            <span>1249</span>
-                            <button type="button" aria-label="Buch liken">
-                                ♡
-                            </button>
-                        </div>
-                    </div>
-
-                    <dl class="book-details">
-                        <dt>Autor</dt>
-                        <dd>Clara Meer</dd>
-
-                        <dt>Erscheinungsjahr</dt>
-                        <dd>2018</dd>
-
-                        <dt>Genre</dt>
-                        <dd>Fantasy</dd>
-                    </dl>
-
-                </section>
-
-                <section class="book-comments">
-                    <h3>Kommentare:</h3>
-
-                    <div class="comments-list">
-                        <p><strong>Kevin:</strong> asdasd</p>
-                        <p><strong>Kevin:</strong> asdasdasdasd</p>
-                        <p>
-                            <strong>Leser123:</strong>
-                            Ein faszinierendes Abenteuerbuch,
-                            das mich von der ersten Seite an
-                            gefesselt hat.
-                        </p>
-                    </div>
-
-                    <form class="comment-form">
-                        <input type="text" name="comment" placeholder="Schreibe deinen Kommentar ..."
-                            aria-label="Kommentar schreiben" required>
-                        <button type="submit" aria-label="Kommentar senden">
-                            ➤
-                        </button>
-                    </form>
-
-                </section>
-            </article>
+        <div id="book-collection" class="content-container book-container">
 
         </div>
     </main>
@@ -90,6 +31,32 @@
             <p>© 2026 DA Bookstore</p>
         </div>
     </footer>
+
+    <!-- Dialog zur einmaligen Eingabe des Benutzernamens -->
+    <dialog id="username-dialog" class="username-dialog">
+
+        <form id="username-form" class="username-form" onsubmit="saveUsername(event)">
+
+            <h2>Willkommen im Bookstore!</h2>
+
+            <p>Wie dürfen wir dich nennen?</p>
+
+            <input type="text" id="username-input" placeholder="Dein Benutzername ..." maxlength="25" required>
+
+            <div class="username-buttons">
+                <button type="button" onclick="closeUsernameDialog()">
+                    Abbrechen
+                </button>
+
+                <button type="submit">
+                    Speichern & kommentieren
+                </button>
+            </div>
+
+        </form>
+
+    </dialog>
+
 </body>
 
 </html>

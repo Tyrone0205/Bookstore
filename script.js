@@ -52,7 +52,7 @@ function getBookTemplate(book, bookIndex) {
                                 aria-label="Buch liken"
                                 aria-pressed="${book.liked}"
                                 onclick="toggleLike(${bookIndex})">
-                                ${book.liked ? '♥' : '♡'}
+                                ❤
                             </button>
                         </div>
                     </div>
@@ -199,7 +199,6 @@ function toggleLike(bookIndex) {
     likeButtonRef.classList.toggle('liked', book.liked);
 
     // Herzsymbol und Like-Counter aktualisieren.
-    likeButtonRef.textContent = book.liked ? '♥' : '♡';
     likeCounterRef.textContent = book.likes;
 
     // Like-Status für Screenreader aktualisieren.

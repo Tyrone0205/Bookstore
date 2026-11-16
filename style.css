@@ -161,18 +161,28 @@ main {
     font-size: 24px;
 }
 
+
 .book-likes button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
     border: none;
     background: transparent;
-    color: var(--text-secondary);
+    color: transparent;
+    -webkit-text-stroke: 2px var(--text-secondary);
     font-size: 32px;
     cursor: pointer;
 }
 
-/* Färbt das Herz rot, wenn das Buch geliked wurde. */
+/* Füllt das Herz bei einem Like rot aus. */
 .book-likes button.liked {
     color: var(--accent-red);
+    -webkit-text-stroke: 2px var(--accent-red);
 }
+
 
 
 /* Autor, Erscheinungsjahr und Genre */

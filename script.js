@@ -85,3 +85,10 @@ function renderComments(bookIndex) {
         commentsRef += getCommentTemplate(comment);  
     }
 }
+
+function getCommentTemplate(comment) {
+    return `<p>
+                <strong>${comment.name}:</strong>
+                ${comment.comment}
+            </p>`
+}

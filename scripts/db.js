@@ -7,7 +7,7 @@ let books = [
         "price": 19.99,
         "publishedYear": 2018,
         "genre": "Fantasy",
-        "picture": "./assets/img/Die_Geheimnisse_des_Ozeans.png",
+        "picture": "./assets/img/Die_Geheimnisse_des_Ozeans.webp",
         "comments": [
             {
                 "name": "Leser123",
@@ -39,7 +39,7 @@ let books = [
         "price": 14.50,
         "publishedYear": 2021,
         "genre": "Fantasy",
-        "picture": "./assets/img/Der_vergessene_Pfad.png",
+        "picture": "./assets/img/Der_vergessene_Pfad.webp",
         "comments": []
     },
     {
@@ -50,7 +50,7 @@ let books = [
         "price": 22.95,
         "publishedYear": 2019,
         "genre": "Romantik",
-        "picture": "./assets/img/Die_Farben_des_Himmels.png",
+        "picture": "./assets/img/Die_Farben_des_Himmels.webp",
         "comments": [
             {
                 "name": "LeserPeter",
@@ -82,7 +82,7 @@ let books = [
         "price": 18.00,
         "publishedYear": 2020,
         "genre": "Science-Fiction",
-        "picture": "./assets/img/Das_Raetsel_der_Zeit.png",
+        "picture": "./assets/img/Das_Raetsel_der_Zeit.webp",
         "comments": [
             {
                 "name": "BuchKenner",
@@ -102,7 +102,7 @@ let books = [
         "price": 16.75,
         "publishedYear": 2017,
         "genre": "Fantasy",
-        "picture": "./assets/img/Der_letzte_Waechter.png",
+        "picture": "./assets/img/Der_letzte_Waechter.webp",
         "comments": []
     },
     {

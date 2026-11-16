@@ -26,6 +26,7 @@ function renderBooks() {
     }
 }
 
+
 function getBookTemplate(book, bookIndex) {
     return `<article class="book-card">
                 <section class="book-header">
@@ -38,21 +39,23 @@ function getBookTemplate(book, bookIndex) {
 
                 <section class="book-information">
 
-                    
-                <div class="book-likes">
-                    <span id="like-counter-${bookIndex}">${book.likes}</span>
+                    <div class="book-price-likes">
+                        <span class="book-price">${book.price.toFixed(2)} €</span>
 
-                    <button
-                        id="like-button-${bookIndex}"
-                        class="like-button ${book.liked ? 'liked' : ''}"
-                        type="button"
-                        aria-label="Buch liken"
-                        aria-pressed="${book.liked}"
-                        onclick="toggleLike(${bookIndex})">
-                        ${book.liked ? '♥' : '♡'}
-                    </button>
-                </div>
+                        <div class="book-likes">
+                            <span id="like-counter-${bookIndex}">${book.likes}</span>
 
+                            <button
+                                id="like-button-${bookIndex}"
+                                class="like-button ${book.liked ? 'liked' : ''}"
+                                type="button"
+                                aria-label="Buch liken"
+                                aria-pressed="${book.liked}"
+                                onclick="toggleLike(${bookIndex})">
+                                ${book.liked ? '♥' : '♡'}
+                            </button>
+                        </div>
+                    </div>
 
                     <dl class="book-details">
                         <dt>Autor</dt>
@@ -85,6 +88,7 @@ function getBookTemplate(book, bookIndex) {
                 </section>
             </article>`
 }
+
 
 
 function renderComments(bookIndex) {
@@ -174,3 +178,31 @@ function closeUsernameDialog() {
     usernameDialogRef.close();
     pendingBookIndex = null;
 }
+
+
+function toggleLike(bookIndex) {
+    const book = books[bookIndex];
+
+    const likeCounterRef = document.getElementById(`like-counter-${bookIndex}`);
+    const likeButtonRef = document.getElementById(`like-button-${bookIndex}`);
+
+    // Like-Status überprüfen und entsprechend ändern.
+    if (book.liked === false) {
+        book.liked = true;
+        book.likes++;
+    } else {
+        book.liked = false;
+        book.likes--;
+    }
+
+    // CSS-Klasse entsprechend dem Like-Status hinzufügen oder entfernen.
+    likeButtonRef.classList.toggle('liked', book.liked);
+
+    // Herzsymbol und Like-Counter aktualisieren.
+    likeButtonRef.textContent = book.liked ? '♥' : '♡';
+    likeCounterRef.textContent = book.likes;
+
+    // Like-Status für Screenreader aktualisieren.
+    likeButtonRef.setAttribute('aria-pressed', book.liked);
+}
+

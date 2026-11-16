@@ -67,9 +67,9 @@ function getBookTemplate(book, bookIndex) {
                     </div>
 
                     <form class="comment-form">
-                        <input type="text" name="comment" placeholder="Schreibe deinen Kommentar ..."
+                        <input id="comment-input-${bookIndex}" type="text" name="comment" placeholder="Schreibe deinen Kommentar ..."
                             aria-label="Kommentar schreiben" required>
-                        <button type="submit" aria-label="Kommentar senden" onclick="addComment()">
+                        <button type="submit" aria-label="Kommentar senden" onclick="addComment(${bookIndex})">
                             ➤
                         </button>
                     </form>
@@ -97,4 +97,11 @@ function getCommentTemplate(comment) {
                 <strong>${comment.name}:</strong>
                 ${comment.comment}
             </p>`
+}
+
+function addComment(bookIndex) {
+
+    const commentInputRef = document.getElementById(`comment-input-${bookIndex}`).value;
+    books[bookIndex].comments.push();
+    renderComments(bookIndex);
 }

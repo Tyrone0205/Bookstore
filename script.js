@@ -6,9 +6,19 @@ function renderBooks() {
 
     for (let bookIndex = 0; bookIndex < books.length; bookIndex++) {
         const book = books[bookIndex];
-        book.comments
 
-        bookCollRef += getBookTemplate(book, bookIndex);
+        // Erst die Buchkarte im DOM erstellen
+        /*
+        * innerHTML += liest den bisherigen HTML-Inhalt und erstellt alle
+        * Kind-Elemente beim Anhängen erneut (Event-Listener gehen verloren).
+        * insertAdjacentHTML('beforeend', ...) fügt neuen HTML-Code am Ende
+        * hinzu, ohne bestehende Elemente neu zu erstellen.
+        * Dadurch ist es bei vielen Einträgen meist performanter.
+        */
+        bookCollRef.insertAdjacentHTML('beforeend', getBookTemplate(book, bookIndex));
+
+        // Danach die Kommentare des jeweiligen Buches rendern
+        renderComments(bookIndex);
 
     }
 }
@@ -53,14 +63,7 @@ function getBookTemplate(book, bookIndex) {
                     <h3>Kommentare:</h3>
 
                     <div id="comments-list-${bookIndex}" class="comments-list">
-                        <p><strong>Kevin:</strong> asdasd</p>
-                        <p><strong>Kevin:</strong> asdasdasdasd</p>
-                        <p>
-                            <strong>Leser123:</strong>
-                            Ein faszinierendes Abenteuerbuch,
-                            das mich von der ersten Seite an
-                            gefesselt hat.
-                        </p>
+
                     </div>
 
                     <form class="comment-form">
@@ -75,14 +78,17 @@ function getBookTemplate(book, bookIndex) {
             </article>`
 }
 
+
 function renderComments(bookIndex) {
     let comments = books[bookIndex].comments;
-    let commentsRef = document.getElementById(`comments-list-${bookIndex}`)
+    let commentsRef = document.getElementById(`comments-list-${bookIndex}`);
+
     commentsRef.innerHTML = '';
 
     for (let commentIndex = 0; commentIndex < comments.length; commentIndex++) {
         const comment = comments[commentIndex];
-        commentsRef += getCommentTemplate(comment);  
+
+        commentsRef.insertAdjacentHTML('beforeend', getCommentTemplate(comment));
     }
 }
 

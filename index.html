@@ -31,6 +31,28 @@
             <p>© 2026 DA Bookstore</p>
         </div>
     </footer>
+
+
+    <dialog id="username-dialog" class="username-dialog">
+        <form id="username-form" class="username-form">
+            <h2>Willkommen im Bookstore!</h2>
+
+            <p>Wie dürfen wir dich nennen?</p>
+
+            <input type="text" id="username-input" placeholder="Dein Benutzername ..." maxlength="25" required>
+
+            <div class="username-buttons">
+                <button type="button" onclick="closeUsernameDialog()">
+                    Abbrechen
+                </button>
+
+                <button type="submit">
+                    Speichern & kommentieren
+                </button>
+            </div>
+        </form>
+    </dialog>
+
 </body>
 
 </html>

@@ -21,7 +21,7 @@
 }
 
 body {
-    height: 100dvh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
@@ -120,7 +120,7 @@ main {
             rgb(24, 86, 107) 0%,
             rgb(16, 58, 75) 100%);
 
-    border-bottom: 2px solid var(--border-color);        
+    border-bottom: 2px solid var(--border-color);
 }
 
 .book-image img {
@@ -354,7 +354,7 @@ footer {
     font-size: 24px;
 }
 
-.username-form p {
+.username-form label {
     font-size: 16px;
     color: var(--text-secondary);
 }
@@ -388,7 +388,26 @@ footer {
 
 .username-buttons button:last-child {
     background-color: var(--accent-red);
-    color: var(--text-primary);
+    color: var(--background-color);
+}
+
+/* Versteckt Inhalte optisch, nicht jedoch für Screenreader. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* Sichtbarer Fokus bei Tastaturbedienung. */
+button:focus-visible,
+input:focus-visible,
+.comments-list:focus-visible {
+    outline: 3px solid rgb(107, 193, 225);
+    outline-offset: 3px;
 }
 
 
@@ -401,7 +420,7 @@ footer {
         font-size: 32px;
     }
 
-    .header-content > span {
+    .header-content>span {
         font-size: 20px;
     }
 }
@@ -418,7 +437,7 @@ footer {
         font-size: 26px;
     }
 
-    .header-content > span {
+    .header-content>span {
         font-size: 16px;
     }
 
@@ -438,7 +457,7 @@ footer {
         font-size: 20px;
     }
 
-    .book-list p {
+    .comments-list p {
         font-size: 16px;
     }
 

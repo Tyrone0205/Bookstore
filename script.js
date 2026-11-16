@@ -94,7 +94,7 @@ function getBookTemplate(book, bookIndex) {
                                 id="like-button-${bookIndex}"
                                 class="like-button ${book.liked ? 'liked' : ''}"
                                 type="button"
-                                aria-label="Buch liken"
+                                aria-label="Gefällt mir für ${escapeHtml(book.name)}"
                                 aria-pressed="${book.liked}"
                                 onclick="toggleLike(${bookIndex})">
                                 ❤
@@ -118,17 +118,34 @@ function getBookTemplate(book, bookIndex) {
                 <section class="book-comments">
                     <h3>Kommentare:</h3>
 
-                    <div id="comments-list-${bookIndex}" class="comments-list">
-
+                    <div id="comments-list-${bookIndex}"
+                        class="comments-list"
+                        role="region"
+                        aria-label="Kommentare zu ${escapeHtml(book.name)}"
+                        tabindex="0">
                     </div>
 
-                    <form class="comment-form" onsubmit="event.preventDefault(); addComment(${bookIndex})">
-                        <input id="comment-input-${bookIndex}" type="text" name="comment" placeholder="Schreibe deinen Kommentar ..."
-                            aria-label="Kommentar schreiben" required>
-                        <button type="submit" aria-label="Kommentar senden">
+
+                    <form class="comment-form"
+                        onsubmit="event.preventDefault(); addComment(${bookIndex})">
+
+                        <label class="visually-hidden"
+                            for="comment-input-${bookIndex}">
+                            Kommentar zu ${escapeHtml(book.name)} schreiben
+                        </label>
+
+                        <input id="comment-input-${bookIndex}"
+                            type="text"
+                            name="comment"
+                            placeholder="Schreibe deinen Kommentar ..."
+                            required>
+
+                        <button type="submit"
+                                aria-label="Kommentar zu ${escapeHtml(book.name)} senden">
                             ➤
                         </button>
                     </form>
+
 
                 </section>
             </article>`
@@ -226,6 +243,34 @@ function closeUsernameDialog() {
     usernameDialogRef.close();
     pendingBookIndex = null;
 }
+
+// Setzt den Buchindex auch beim Schließen mit Escape zurück.
+usernameDialogRef.addEventListener('close', () => {
+    pendingBookIndex = null;
+});
+
+
+function closeUsernameDialogOutside(event) {
+    // Nur Klicks auf das Dialogelement selbst berücksichtigen.
+    if (event.target !== usernameDialogRef) {
+        return;
+    }
+
+    // Position und Größe des Dialogs ermitteln.
+    const rect = usernameDialogRef.getBoundingClientRect();
+
+    // Überprüfen, ob außerhalb des sichtbaren Dialogs geklickt wurde.
+    const isOutside =
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom;
+
+    if (isOutside) {
+        closeUsernameDialog();
+    }
+}
+
 
 
 function toggleLike(bookIndex) {

@@ -3,6 +3,7 @@ let bookCollRef = document.getElementById('book-collection');
 const usernameDialogRef = document.getElementById('username-dialog');
 let pendingBookIndex = null;
 const storageKey = "bookData";
+let showLikedOnly = false;
 
 // Speichert das gesamte books-Array als JSON-String im localStorage.
 function saveToLocalStorage() {
@@ -63,6 +64,12 @@ function renderBooks() {
         * hinzu, ohne bestehende Elemente neu zu erstellen.
         * Dadurch ist es bei vielen Einträgen meist performanter.
         */
+
+        // Bei aktiviertem Filter ungelikte Bücher überspringen.
+        if (showLikedOnly && !book.liked) {
+            continue;
+        }
+
         bookCollRef.insertAdjacentHTML('beforeend', getBookTemplate(book, bookIndex));
 
         // Danach die Kommentare des jeweiligen Buches rendern
@@ -70,88 +77,6 @@ function renderBooks() {
 
     }
 }
-
-
-function getBookTemplate(book, bookIndex) {
-    return `<article class="book-card">
-                <section class="book-header">
-                    <h2>${book.name}</h2>
-                </section>
-
-                <div class="book-image">
-                    <img src="${book.picture}" alt="Buchcover von ${book.name}">
-                </div>
-
-                <section class="book-information">
-
-                    <div class="book-price-likes">
-                        <span class="book-price">${book.price.toFixed(2)} €</span>
-
-                        <div class="book-likes">
-                            <span id="like-counter-${bookIndex}">${book.likes}</span>
-
-                            <button
-                                id="like-button-${bookIndex}"
-                                class="like-button ${book.liked ? 'liked' : ''}"
-                                type="button"
-                                aria-label="Gefällt mir für ${escapeHtml(book.name)}"
-                                aria-pressed="${book.liked}"
-                                onclick="toggleLike(${bookIndex})">
-                                ❤
-                            </button>
-                        </div>
-                    </div>
-
-                    <dl class="book-details">
-                        <dt>Autor</dt>
-                        <dd>${book.author}</dd>
-
-                        <dt>Erscheinungsjahr</dt>
-                        <dd>${book.publishedYear}</dd>
-
-                        <dt>Genre</dt>
-                        <dd>${book.genre}</dd>
-                    </dl>
-
-                </section>
-
-                <section class="book-comments">
-                    <h3>Kommentare:</h3>
-
-                    <div id="comments-list-${bookIndex}"
-                        class="comments-list"
-                        role="region"
-                        aria-label="Kommentare zu ${escapeHtml(book.name)}"
-                        tabindex="0">
-                    </div>
-
-
-                    <form class="comment-form"
-                        onsubmit="event.preventDefault(); addComment(${bookIndex})">
-
-                        <label class="visually-hidden"
-                            for="comment-input-${bookIndex}">
-                            Kommentar zu ${escapeHtml(book.name)} schreiben
-                        </label>
-
-                        <input id="comment-input-${bookIndex}"
-                            type="text"
-                            name="comment"
-                            placeholder="Schreibe deinen Kommentar ..."
-                            required>
-
-                        <button type="submit"
-                                aria-label="Kommentar zu ${escapeHtml(book.name)} senden">
-                            ➤
-                        </button>
-                    </form>
-
-
-                </section>
-            </article>`
-}
-
-
 
 function renderComments(bookIndex) {
     let comments = books[bookIndex].comments;
@@ -172,14 +97,6 @@ function escapeHtml(value) {
     element.textContent = String(value);
     return element.innerHTML;
 }
-
-function getCommentTemplate(comment) {
-    return `<p>
-                <strong>${escapeHtml(comment.name)}:</strong>
-                ${escapeHtml(comment.comment)}
-            </p>`
-}
-
 
 function addComment(bookIndex) {
     const username = localStorage.getItem('bookstoreUserName');
@@ -249,7 +166,6 @@ usernameDialogRef.addEventListener('close', () => {
     pendingBookIndex = null;
 });
 
-
 function closeUsernameDialogOutside(event) {
     // Nur Klicks auf das Dialogelement selbst berücksichtigen.
     if (event.target !== usernameDialogRef) {
@@ -270,8 +186,6 @@ function closeUsernameDialogOutside(event) {
         closeUsernameDialog();
     }
 }
-
-
 
 function toggleLike(bookIndex) {
     const book = books[bookIndex];
@@ -299,5 +213,22 @@ function toggleLike(bookIndex) {
 
     // Like-Status für Screenreader aktualisieren.
     likeButtonRef.setAttribute('aria-pressed', book.liked);
+
+    // Bei aktiviertem Filter die Buchauswahl aktualisieren.
+    if (showLikedOnly && !book.liked) {
+        renderBooks();
+    }
 }
 
+function setBookFilter(likedOnly) {
+    showLikedOnly = likedOnly;
+
+    // Aktiven Filter für Screenreader aktualisieren.
+    document.getElementById('filter-all')
+        .setAttribute('aria-pressed', !likedOnly);
+
+    document.getElementById('filter-liked')
+        .setAttribute('aria-pressed', likedOnly);
+
+    renderBooks();
+}

@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="./assets/icons/website_icon.png" type="image/png">
     <script src="./script.js" defer></script>
     <script src="./scripts/db.js" defer></script>
+    <script src="./scripts/template.js"></script>
 </head>
 
 <body onload="init()">
@@ -22,6 +23,17 @@
     </header>
 
     <main>
+
+        <div class="book-filters" role="group" aria-label="Bücher filtern">
+            <button id="filter-all" type="button" aria-pressed="true" onclick="setBookFilter(false)">
+                Alle Bücher
+            </button>
+
+            <button id="filter-liked" type="button" aria-pressed="false" onclick="setBookFilter(true)">
+                ♥ Gelikte Bücher
+            </button>
+        </div>
+
         <div id="book-collection" class="content-container book-container">
 
         </div>
@@ -36,7 +48,7 @@
     <!-- Dialog zur einmaligen Eingabe des Benutzernamens -->
     <dialog id="username-dialog" class="username-dialog" aria-labelledby="username-dialog-title"
         onclick="closeUsernameDialogOutside(event)">
-        
+
         <form id="username-form" class="username-form" onsubmit="saveUsername(event)">
 
             <h2 id="username-dialog-title">

@@ -1,4 +1,5 @@
 let bookCollRef = document.getElementById('book-collection');
+const usernameDialogRef = document.getElementById('username-dialog');
 
 function renderBooks() {
 
@@ -100,8 +101,15 @@ function getCommentTemplate(comment) {
 }
 
 function addComment(bookIndex) {
-
     const commentInputRef = document.getElementById(`comment-input-${bookIndex}`).value;
     books[bookIndex].comments.push();
     renderComments(bookIndex);
+}
+
+function openUsernameDialog() {
+    usernameDialogRef.openModal();
+}
+
+function closeUsernameDialog() {
+    usernameDialogRef.close();
 }

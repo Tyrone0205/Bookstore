@@ -100,10 +100,36 @@ function getCommentTemplate(comment) {
             </p>`
 }
 
+
 function addComment(bookIndex) {
-    const commentInputRef = document.getElementById(`comment-input-${bookIndex}`).value;
-    books[bookIndex].comments.push();
+
+    const username = localStorage.getItem('bookstoreUserName');
+
+    if (!username) {
+        openUsernameDialog();
+        return;
+    }
+
+    const commentInputRef = document.getElementById(`comment-input-${bookIndex}`);
+    const commentText = commentInputRef.value.trim();
+
+    // Leere Kommentare verhindern
+    if (!commentText) return;
+
+    // Neues Kommentarobjekt erstellen
+    const newComment = {
+        name: username,
+        comment: commentText
+    };
+
+    // Kommentar zum richtigen Buch hinzufügen
+    books[bookIndex].comments.push(newComment);
+
+    // Kommentare des jeweiligen Buches neu rendern
     renderComments(bookIndex);
+
+    // Eingabefeld zurücksetzen
+    commentInputRef.value = '';
 }
 
 function openUsernameDialog() {

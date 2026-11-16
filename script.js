@@ -38,16 +38,21 @@ function getBookTemplate(book, bookIndex) {
 
                 <section class="book-information">
 
-                    <div class="book-price-likes">
-                        <span class="book-price">${book.price} €</span>
+                    
+                <div class="book-likes">
+                    <span id="like-counter-${bookIndex}">${book.likes}</span>
 
-                        <div class="book-likes">
-                            <span>${book.likes}</span>
-                            <button type="button" aria-label="Buch liken">
-                                ♡
-                            </button>
-                        </div>
-                    </div>
+                    <button
+                        id="like-button-${bookIndex}"
+                        class="like-button ${book.liked ? 'liked' : ''}"
+                        type="button"
+                        aria-label="Buch liken"
+                        aria-pressed="${book.liked}"
+                        onclick="toggleLike(${bookIndex})">
+                        ${book.liked ? '♥' : '♡'}
+                    </button>
+                </div>
+
 
                     <dl class="book-details">
                         <dt>Autor</dt>

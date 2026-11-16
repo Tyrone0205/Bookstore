@@ -164,10 +164,16 @@ main {
 .book-likes button {
     border: none;
     background: transparent;
-    color: var(--accent-red);
+    color: var(--text-secondary);
     font-size: 32px;
     cursor: pointer;
 }
+
+/* Färbt das Herz rot, wenn das Buch geliked wurde. */
+.book-likes button.liked {
+    color: var(--accent-red);
+}
+
 
 /* Autor, Erscheinungsjahr und Genre */
 

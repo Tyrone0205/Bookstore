@@ -2,6 +2,12 @@
 let bookCollRef = document.getElementById('book-collection');
 const usernameDialogRef = document.getElementById('username-dialog');
 let pendingBookIndex = null;
+const storageKey = "bookData";
+
+// Speichert das gesamte books-Array als JSON-String im localStorage.
+function saveToLocalStorage() {
+    localStorage.setItem(storageKey, JSON.stringify(books));
+}
 
 function renderBooks() {
 

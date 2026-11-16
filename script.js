@@ -42,6 +42,12 @@ function getFromLocalStorage() {
     }
 }
 
+// Initialisierung beim Laden der Webseite.
+function init() {
+    getFromLocalStorage();
+    renderBooks();
+}
+
 function renderBooks() {
 
     bookCollRef.innerHTML = '';
